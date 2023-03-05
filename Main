@@ -1,0 +1,68 @@
+#include <stdio.h>
+#include <locale.h>
+
+struct registro{
+        char nome[30];
+        float altura;
+        int codigo;
+};
+
+int menu(registro *pessoa, int pessoasCadastradas, int op, int x){
+    switch(op){
+    case 1:
+        fflush(stdin);
+        printf("Digite o código: ");
+        scanf("%d", &pessoa[x].codigo);
+        fflush(stdin);
+        printf("Digite o nome: ");
+        gets(pessoa[x].nome);
+        fflush(stdin);
+        printf("Digite a altura: ");
+        scanf("%f", &pessoa[x].altura);
+        fflush(stdin);
+        pessoasCadastradas++;
+        return 1;
+    case 2:
+        printf("_________________________________________");
+        printf("\n\nCódigo\t\tNome\t\tAltura\t");
+        printf("\n________________________________________");
+        
+    for(x=0;x<pessoasCadastradas;x++){
+        printf("\n%d\t\t%s\t\t%3.2f\t",pessoa[x].codigo,pessoa[x].nome,pessoa[x].altura);
+    }
+    
+    printf("\n_________________________________________");
+        break;
+    case 3:
+        break;
+    }
+    
+    return 0;
+}
+
+
+int main(){
+    struct registro pessoa[5];
+    int op, x;
+    int pessoasCadastradas = 0;
+    int sucesso;
+    
+    for(x=0;x<6;){
+    printf("\nEscolha uma opção do menu\n", setlocale(LC_ALL,""));
+    fflush(stdin);
+    printf("1 - Cadastrar nova pessoa\n2 - Exibir cadastros\n3 - Sair\n");
+    scanf("%d", &op);
+    if(op!=3){
+    sucesso = menu(pessoa, x, op, x);
+    if(pessoasCadastradas>5){
+		printf("memoria cheia");
+		break;
+	}
+    if(sucesso == 1) x++;
+    }
+    else{
+        break;
+    }
+    }
+    return 0;
+}
